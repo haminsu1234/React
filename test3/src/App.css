@@ -54,3 +54,13 @@ div {
   border-bottom : 1px solid grey;
 }
 
+.list > div:first-child{
+  font-weight : bold;
+}
+.modal{
+  margin-top : 20px;
+  padding: 20px;
+  background: #eee;
+  text-align: left;
+}
+
