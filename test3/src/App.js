@@ -6,8 +6,13 @@ import {isValidDateValue} from "@testing-library/user-event/dist/utils";
 function App() {
     let [title,setTitle]=useState(['맛집추천','옷집추천','아무거나 추천']); //배열느낌으로 사용
     let post ='2023.11.02';
-    let [hit,setHit]=useState(0);
-    let [modal,setModal]=useState(true);
+    let [hit,setHit]=useState([0,0,0]);
+    let [modal,setModal]=useState(false); //스위치 느낌
+
+    [1,2,3].map(function(a){
+       return '123456'
+    })//함수안의 기능을 배열 인덱스 수 만큼 반복실행
+
 
 
 
@@ -32,7 +37,11 @@ function App() {
             <p>{post}</p>
         </div>
         <div className="list">
-            <div>{title[2]}</div>
+            <h4 onClick={()=>{
+                let copy3 = modal;
+                copy3=!copy3;
+                setModal(copy3)
+            }}>{title[2]}</h4>
             <p>{post}</p>
             <button onClick={()=>{
                 let copy =[...title];/*state 를 변경할일이 있을때는 카피본을 만들고 카피본을 수정해야함 원본은 최대한 보존*/
@@ -42,7 +51,25 @@ function App() {
                 setTitle(copy);
             }}>변경하기</button>
         </div>
-        <Modal/>
+        {
+          title.map(function (a,i){
+              return        ( <div className="list">
+                  <div>{title[i]} <span onClick={()=>{setHit(hit[i]+1)}}>👍</span>
+                  {hit[i]}</div>
+                  <p>{post}</p>
+              </div>)
+          })  //for if 이런거 쓰지마라, array 안에 태그 입력해도 잘나온다!
+            //두번째는 i 1씩증가하는 수
+            //반복생성한 태그들은 유니크한 키값이 필요함
+        }
+
+
+        {
+            modal == true ? <Modal/> : null
+                /*html 작성공간에 if문 쓰지마라*/
+                /*html 작성공간에 if문 쓰고싶으면 삼항연산자 써라*/
+                /*html ui를 만드는 패턴*/
+        }
     </div>
 
   );
